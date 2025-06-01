@@ -1,6 +1,6 @@
 package advantageonlineshopping.com.utils;
 
-import advantageonlineshopping.com.GlobalRegisterData;
+import advantageonlineshopping.com.data.GlobalRegisterData;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;

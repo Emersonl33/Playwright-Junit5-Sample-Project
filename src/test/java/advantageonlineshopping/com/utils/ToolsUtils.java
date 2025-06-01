@@ -2,6 +2,8 @@ package advantageonlineshopping.com.utils;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import lombok.SneakyThrows;
+
 
 public class ToolsUtils {
 
@@ -10,18 +12,16 @@ public class ToolsUtils {
      *
      * @param locator Locator do elemento a ser clicado.
      */
+    @SneakyThrows
     public static void highlightAndClick(Locator locator) {
         locator.evaluate("el => { " +
                 "el.style.border = '3px solid darkgreen'; " +
                 "el.style.backgroundColor = 'lightgreen'; " +
                 "}");
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        Thread.sleep(500);
 
+        locator.scrollIntoViewIfNeeded();
         locator.click();
 
         locator.evaluate("el => { " +
@@ -38,9 +38,43 @@ public class ToolsUtils {
         highlightAndClick(locator);
     }
 
-    public static void inputFill(Locator locator, String fill){
-        highlightAndClick(locator);
+    @SneakyThrows
+    public static void highlightScrollAndFill(Locator locator, String value) {
+        locator.scrollIntoViewIfNeeded();
+
+        locator.evaluate("el => { " +
+                "el.style.border = '2px solid darkblue'; " +
+                "el.style.backgroundColor = '#e6f2ff'; " +
+                "}");
+
+        Thread.sleep(300);
+
         locator.clear();
-        locator.fill(fill);
+        locator.fill(value);
+
+        Thread.sleep(500);
+
+        locator.evaluate("el => { " +
+                "el.style.border = ''; " +
+                "el.style.backgroundColor = ''; " +
+                "}");
     }
+
+    @SneakyThrows
+    public static void highlightVisibility (Locator locator) {
+        locator.scrollIntoViewIfNeeded();
+
+        locator.evaluate("el => { " +
+                "el.style.border = '3px solid darkgreen'; " +
+                "el.style.backgroundColor = 'lightgreen'; " +
+                "}");
+
+        Thread.sleep(500);
+
+        locator.evaluate("el => { " +
+                "el.style.border = ''; " +
+                "el.style.backgroundColor = ''; " +
+                "}");
+    }
+
 }

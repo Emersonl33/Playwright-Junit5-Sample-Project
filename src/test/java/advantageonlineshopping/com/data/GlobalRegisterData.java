@@ -1,4 +1,4 @@
-package advantageonlineshopping.com;
+package advantageonlineshopping.com.data;
 
 public class GlobalRegisterData {
     public static String USERNAME;

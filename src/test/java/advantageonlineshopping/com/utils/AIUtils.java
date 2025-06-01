@@ -1,6 +1,6 @@
 package advantageonlineshopping.com.utils;
 
-import advantageonlineshopping.com.GlobalRegisterData;
+import advantageonlineshopping.com.data.GlobalRegisterData;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,22 +17,34 @@ public class AIUtils {
     private static final String API_KEY = System.getenv("OPENROUTER_API_KEY");
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
-    public static Map<String, String> generateUserData() throws Exception {
+    public static Map<String, String> generateUserData(String model, String systemMessage, String userPrompt) throws Exception {
+        validarApiKey();
+        String requestBody = montarRequisicaoJson(model, systemMessage, userPrompt);
+        String resposta = chamarApi(requestBody);
+        String jsonLimpo = extrairJsonDaResposta(resposta);
+        return converterJsonParaMap(jsonLimpo);
+    }
+
+    private static void validarApiKey() {
         if (API_KEY == null || API_KEY.isEmpty()) {
             throw new IllegalStateException("API key não encontrada na variável de ambiente OPENROUTER_API_KEY");
         }
+    }
 
-        HttpClient client = HttpClient.newHttpClient();
-
-        String jsonRequest = """
+    private static String montarRequisicaoJson(String model, String systemMessage, String userPrompt) {
+        return """
         {
-          "model": "gpt-4o-mini",
+          "model": "%s",
           "messages": [
-            {"role": "system", "content": "Você é um gerador de dados de registro. É importante que você seja criativo!!!"},
-            {"role": "user", "content": "Gere um JSON puro, sem texto adicional, contendo os campos username, email, password <Use  4 character or longer, Use maximum 12 character, Including at least one lower letter, Including at least one upper letter, Including at least one number>, confirmPassword, firstname, lastname, phoneNumber, country<nome real em inglês>, city, address, state, postalCode."}
+            {"role": "system", "content": "%s"},
+            {"role": "user", "content": "%s"}
           ]
         }
-        """;
+        """.formatted(model, systemMessage, userPrompt);
+    }
+
+    private static String chamarApi(String jsonRequest) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL))
@@ -47,8 +59,12 @@ public class AIUtils {
             throw new RuntimeException("Erro na API OpenRouter: " + response.body());
         }
 
+        return response.body();
+    }
+
+    private static String extrairJsonDaResposta(String resposta) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(response.body());
+        JsonNode root = mapper.readTree(resposta);
         JsonNode contentNode = root.path("choices").get(0).path("message").path("content");
         String content = contentNode.asText().strip();
 
@@ -59,12 +75,18 @@ public class AIUtils {
             throw new RuntimeException("JSON inválido recebido da API");
         }
 
-        String jsonString = content.substring(startIndex, endIndex + 1);
+        return content.substring(startIndex, endIndex + 1);
+    }
 
-        return mapper.readValue(jsonString, new TypeReference<Map<String, String>>() {});
+    private static Map<String, String> converterJsonParaMap(String jsonString) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(
+                jsonString, new TypeReference<Map<String, String>>() {}
+        );
     }
 
     public static void populateGlobalRegisterData(Map<String, String> data) {
+
         GlobalRegisterData.USERNAME = data.get("username");
         GlobalRegisterData.EMAIL = data.get("email");
         GlobalRegisterData.PASSWORD = data.get("password");
