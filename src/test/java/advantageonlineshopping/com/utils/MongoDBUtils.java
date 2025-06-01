@@ -85,7 +85,7 @@ public class MongoDBUtils {
         MongoCollection<Document> collection = createCollectionIfNotExists(collectionName);
 
         Map<String, Object> data = new HashMap<>();
-        data.put("_id", GlobalRegisterData.USERNAME + " register data"); // Nome personalizado do documento
+        data.put("_id", GlobalRegisterData.USERNAME + " register data"); // Nome do documento
         data.put("username", GlobalRegisterData.USERNAME);
         data.put("email", GlobalRegisterData.EMAIL);
         data.put("password", GlobalRegisterData.PASSWORD);

@@ -6,8 +6,7 @@ import com.microsoft.playwright.Page;
 public class ToolsUtils {
 
     /**
-     * Realça o elemento com borda verde escuro e fundo verde claro,
-     * espera 500ms para o efeito ficar visível e clica no elemento.
+     * Realça o elemento e clica nele,
      *
      * @param locator Locator do elemento a ser clicado.
      */
