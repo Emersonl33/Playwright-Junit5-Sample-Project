@@ -26,7 +26,10 @@ public class MongoDBUtils {
     public static Document lastInsertedDocument;
 
     /**
-     * Inicializa a conexão com o MongoDB e seleciona o banco de dados.
+     * Establishes a connection to the MongoDB server using the specified URI
+     * and selects the target database by name.
+     *
+     * @param databaseName Name of the MongoDB database to connect to.
      */
     public static void init(String databaseName) {
         try {
@@ -38,18 +41,23 @@ public class MongoDBUtils {
             mongoClient = MongoClients.create(settings);
             database = mongoClient.getDatabase(databaseName);
 
-            log.info("Connected to MongoDB database '{}'", databaseName);
+            log.info("Successfully connected to MongoDB. Using database '{}'.", databaseName);
         } catch (Exception e) {
-            log.error("Failed to connect to MongoDB", e);
+            log.error("An error occurred while trying to connect to MongoDB.", e);
             throw e;
         }
     }
 
     /**
-     * Cria a coleção se não existir e retorna ela.
+     * Checks if a collection with the given name exists in the current database.
+     * If it doesn't exist, the method creates the collection.
+     * Finally, it returns a reference to the collection.
+     *
+     * @param collectionName The name of the collection to create or retrieve.
+     * @return A reference to the MongoCollection object.
      */
     public static MongoCollection<Document> createCollectionIfNotExists(String collectionName) {
-        if (database == null) throw new IllegalStateException("MongoDB is not initialized");
+        if (database == null) throw new IllegalStateException("MongoDB connection has not been initialized.");
 
         boolean exists = database.listCollectionNames()
                 .into(new ArrayList<>())
@@ -57,9 +65,9 @@ public class MongoDBUtils {
 
         if (!exists) {
             database.createCollection(collectionName);
-            log.info("Collection '{}' created successfully.", collectionName);
+            log.info("Collection '{}' did not exist and was successfully created.", collectionName);
         } else {
-            log.info("Collection '{}' already exists.", collectionName);
+            log.info("Collection '{}' already exists in the database.", collectionName);
         }
 
         lastCollection = database.getCollection(collectionName);
@@ -67,7 +75,11 @@ public class MongoDBUtils {
     }
 
     /**
-     * Insere um documento com os dados fornecidos.
+     * Inserts a new document into the specified collection using the given data map.
+     * If the collection doesn't exist, it will be created first.
+     *
+     * @param collectionName The name of the target collection.
+     * @param data           The key-value data to insert as a document.
      */
     public static void insertDocument(String collectionName, Map<String, Object> data) {
         MongoCollection<Document> collection = createCollectionIfNotExists(collectionName);
@@ -76,16 +88,23 @@ public class MongoDBUtils {
 
         lastInsertedDocument = doc;
 
-        log.info("Documento inserido com sucesso na coleção '{}'", collectionName);
+        log.info("A new document was inserted into collection '{}'.", collectionName);
     }
 
+    /**
+     * Constructs and saves a registration data document based on values stored in
+     * the GlobalRegisterData class. The document is inserted into the specified collection.
+     * An _id is generated using the username to uniquely identify the document.
+     *
+     * @param collectionName The name of the collection where the data will be stored.
+     */
     public static void saveRegisterData(String collectionName) {
-        if (database == null) throw new IllegalStateException("MongoDB is not initialized");
+        if (database == null) throw new IllegalStateException("MongoDB connection has not been initialized.");
 
         MongoCollection<Document> collection = createCollectionIfNotExists(collectionName);
 
         Map<String, Object> data = new HashMap<>();
-        data.put("_id", GlobalRegisterData.USERNAME + " register data"); // Nome do documento
+        data.put("_id", GlobalRegisterData.USERNAME + " register data"); // Unique document identifier
         data.put("username", GlobalRegisterData.USERNAME);
         data.put("email", GlobalRegisterData.EMAIL);
         data.put("password", GlobalRegisterData.PASSWORD);
@@ -103,11 +122,13 @@ public class MongoDBUtils {
         collection.insertOne(doc);
         lastInsertedDocument = doc;
 
-        log.info("Dados inseridos no MongoDB com _id: {}", data.get("_id"));
+        log.info("Registration data successfully inserted with _id: {}", data.get("_id"));
     }
 
     /**
-     * Fecha a conexão com o MongoDB.
+     * Closes the current MongoDB connection and clears all stored references.
+     * This method should be called when the application no longer needs access
+     * to the database to properly release resources.
      */
     public static void close() {
         if (mongoClient != null) {
@@ -116,9 +137,11 @@ public class MongoDBUtils {
             database = null;
             lastCollection = null;
             lastInsertedDocument = null;
-            log.info("MongoDB connection closed.");
+
+            log.info("MongoDB connection has been closed and all references cleared.");
         }
     }
+
 }
 
 
