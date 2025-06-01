@@ -33,7 +33,6 @@ public class LoginTest extends Hooks {
         // Salva no MongoDB
         MongoDBUtils.saveRegisterData("credentialsTests");
 
-
         stepNavigateToHomePage();
         stepNavigateToRegister();
 

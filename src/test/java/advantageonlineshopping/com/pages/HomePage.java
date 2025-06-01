@@ -22,7 +22,7 @@ public class HomePage {
     }
 
     private Locator createNewAccountLabel() {
-        return page.getByLabel("CREATE NEW ACCOUNT");
+        return page.locator("[translate='CREATE_NEW_ACCOUNT']");
     }
 
     public void userIconClick() {

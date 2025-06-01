@@ -18,55 +18,55 @@ public class RegistrationPage {
     }
 
     private Locator usernameInput() {
-        return page.locator("#usernameRegisterPage");
+        return page.locator("[name='usernameRegisterPage']");
     }
 
     private Locator passwordInput() {
-        return page.locator("#passwordRegisterPage");
+        return page.locator("[name='passwordRegisterPage']");
     }
 
     private Locator confirmPasswordInput() {
-        return page.locator("#confirm_passwordRegisterPage");
+        return page.locator("[name='confirm_passwordRegisterPage']");
     }
 
     private Locator emailInput() {
-        return page.locator("#emailRegisterPage");
+        return page.locator("[name='emailRegisterPage']");
     }
 
     private Locator firstnameInput() {
-        return page.locator("#first_nameRegisterPage");
+        return page.locator("[name='first_nameRegisterPage']");
     }
 
     private Locator lastnameInput() {
-        return page.locator("#last_nameRegisterPage");
+        return page.locator("[name='last_nameRegisterPage']");
     }
 
     private Locator phoneNumberInput() {
-        return page.locator("#phone_numberRegisterPage");
+        return page.locator("[name='phone_numberRegisterPage']");
     }
 
     private Locator cityInput() {
-        return page.locator("#cityRegisterPage");
+        return page.locator("[name='cityRegisterPage']");
     }
 
     private Locator adressInput() {
-        return page.locator("#addressRegisterPage");
+        return page.locator("[name='addressRegisterPage']");
     }
 
     private Locator countryComboBox() {
-        return page.locator("#countryListboxRegisterPage");
+        return page.locator("[name='countryListboxRegisterPage']");
     }
 
     private Locator stateInput() {
-        return page.locator("#state_/_province_/_regionRegisterPage");
+        return page.locator("[name='state_/_province_/_regionRegisterPage']");
     }
 
     private Locator postalCodeInput() {
-        return page.locator("#postal_codeRegisterPage");
+        return page.locator("[name='postal_codeRegisterPage']");
     }
 
     private Locator agreeCheckBox() {
-        return page.locator("#i_agree");
+        return page.locator("[name='i_agree']");
     }
 
     private Locator registerButton(){

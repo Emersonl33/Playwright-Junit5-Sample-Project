@@ -25,14 +25,14 @@ public class AIUtils {
         HttpClient client = HttpClient.newHttpClient();
 
         String jsonRequest = """
-                {
-                  "model": "gpt-4o-mini",
-                  "messages": [
-                    {"role": "system", "content": "Você é um gerador de dados de registro."},
-                    {"role": "user", "content": "Gere um JSON com os campos username, email, password, confirmPassword, firstname, lastname, phoneNumber, country, city, address, state, postalCode."}
-                  ]
-                }
-                """;
+        {
+          "model": "gpt-4o-mini",
+          "messages": [
+            {"role": "system", "content": "Você é um gerador de dados de registro. É importante que você seja criativo!!!"},
+            {"role": "user", "content": "Gere um JSON puro, sem texto adicional, contendo os campos username, email, password <Use  4 character or longer, Use maximum 12 character, Including at least one lower letter, Including at least one upper letter, Including at least one number>, confirmPassword, firstname, lastname, phoneNumber, country<nome real em inglês>, city, address, state, postalCode."}
+          ]
+        }
+        """;
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL))
@@ -50,11 +50,18 @@ public class AIUtils {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.body());
         JsonNode contentNode = root.path("choices").get(0).path("message").path("content");
-        String content = contentNode.asText();
+        String content = contentNode.asText().strip();
 
-        Map<String, String> data = mapper.readValue(content, new TypeReference<Map<String, String>>() {});
+        int startIndex = content.indexOf('{');
+        int endIndex = content.lastIndexOf('}');
 
-        return data;
+        if (startIndex == -1 || endIndex == -1 || endIndex <= startIndex) {
+            throw new RuntimeException("JSON inválido recebido da API");
+        }
+
+        String jsonString = content.substring(startIndex, endIndex + 1);
+
+        return mapper.readValue(jsonString, new TypeReference<Map<String, String>>() {});
     }
 
     public static void populateGlobalRegisterData(Map<String, String> data) {
