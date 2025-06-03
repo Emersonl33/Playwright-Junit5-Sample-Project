@@ -21,7 +21,7 @@ import static advantageonlineshopping.com.utils.AllureUtils.screenshot;
 
 @Slf4j
 @ExtendWith(AllureJunit5.class)
-public class SignUpTest extends Hooks {
+public class RegisterTest extends Hooks {
 
     RegistrationPage register = new RegistrationPage(page);
     HomePage home = new HomePage(page);
@@ -43,10 +43,10 @@ public class SignUpTest extends Hooks {
     @Step("Generate register data")
     void stepGenerateRegisterData() throws Exception {
         String model = "gpt-4o-mini";
-        String systemMsg = "Você é um gerador de dados de registro. Seja criativo, evite usar nomes genéricos no username para evitar duplicação!";
-        String userMsg = "Gere um JSON puro, sem texto adicional, contendo os campos username, email," +
-                " password <Use  4 character or longer, Use maximum 12 character, Including at least one lower letter, Including at least one upper letter, Including at least one number>," +
-                " confirmPassword, firstname, lastname, phoneNumber, country<real name in english to all geographic infos>, city, address, state, postalCode.";
+        String systemMsg = "You are a registration data generator. Be creative, avoid using generic names in username to prevent duplication!";
+        String userMsg = "Generate a pure JSON, without additional text, containing the fields username, email," +
+                " password <Use 4 characters or longer, Use maximum 12 characters, Including at least one lowercase letter, Including at least one uppercase letter, Including at least one number>," +
+                " confirmPassword, firstname, lastname, phoneNumber, country <real name in English for all geographic info>, city, address, state, postalCode.";
 
         Map<String, String> userData = AIUtils.generateUserData(model, systemMsg, userMsg);
         AIUtils.populateGlobalRegisterData(userData);
@@ -54,7 +54,7 @@ public class SignUpTest extends Hooks {
 
     @Step("Navigate to home page")
     void stepNavigateToHomePage() {
-        AllureUtils.attachLog("Logs de execução", "Iniciando o teste...\nPasso 1 executado com sucesso");
+        AllureUtils.attachLog("Execution logs", "Starting the test...\nStep 1 executed successfully");
         page.navigate("https://advantageonlineshopping.com/#/");
         page.waitForLoadState(LoadState.NETWORKIDLE);
         screenshot(page, "Entry in home page");

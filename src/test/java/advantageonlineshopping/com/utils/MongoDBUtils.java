@@ -126,6 +126,44 @@ public class MongoDBUtils {
     }
 
     /**
+     * Loads the first document from the specified collection and populates GlobalRegisterData fields.
+     * Also updates the lastCollection and lastInsertedDocument fields.
+     *
+     * @param collectionName The name of the collection to search in.
+     * @return true if a document was found and GlobalRegisterData was populated, false otherwise.
+     */
+    public static boolean loadFirstRegisterData(String collectionName) {
+        if (database == null) throw new IllegalStateException("MongoDB connection has not been initialized.");
+
+        lastCollection = database.getCollection(collectionName);
+        Document foundDocument = lastCollection.find().first();
+
+        if (foundDocument != null) {
+            lastInsertedDocument = foundDocument;
+
+            GlobalRegisterData.USERNAME = foundDocument.getString("username");
+            GlobalRegisterData.EMAIL = foundDocument.getString("email");
+            GlobalRegisterData.PASSWORD = foundDocument.getString("password");
+            GlobalRegisterData.CONFIRM_PASSWORD = foundDocument.getString("confirmPassword");
+            GlobalRegisterData.FIRSTNAME = foundDocument.getString("firstname");
+            GlobalRegisterData.LASTNAME = foundDocument.getString("lastname");
+            GlobalRegisterData.PHONE_NUMBER = foundDocument.getString("phoneNumber");
+            GlobalRegisterData.COUNTRY = foundDocument.getString("country");
+            GlobalRegisterData.CITY = foundDocument.getString("city");
+            GlobalRegisterData.ADDRESS = foundDocument.getString("address");
+            GlobalRegisterData.STATE = foundDocument.getString("state");
+            GlobalRegisterData.POSTAL_CODE = foundDocument.getString("postalCode");
+
+            log.info("First document loaded and GlobalRegisterData populated.");
+            return true;
+        } else {
+            log.error("No documents found in collection '{}'.", collectionName);
+            return false;
+        }
+    }
+
+
+    /**
      * Closes the current MongoDB connection and clears all stored references.
      * This method should be called when the application no longer needs access
      * to the database to properly release resources.
