@@ -6,7 +6,8 @@
 
 This repository contains an automated testing framework built with:
 
-- Playwright for Java to automate UI actions  
+- Java 21+
+- Playwright framework 
 - JUnit 5 to run tests  
 - MongoDB (local) to store user data created during tests  
 - A sample AI prompt with OpenRouter API to generate or analyze test data  
