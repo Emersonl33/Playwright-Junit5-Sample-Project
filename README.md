@@ -48,7 +48,7 @@ OPENROUTER_API_KEY=as5d16a5s1d6a5s1d65as1d65as1d65a1d6
 ```bash
 mvn clean test
 ````
-## To access the relatory generated with allure
+## To access the report generated with allure
 ### Using Maven:
 ```bash
 mvn allure:serve
