@@ -38,15 +38,19 @@ The framework supports both UI and API testing.
 ```bash
 OPENROUTER_API_KEY=as5d16a5s1d6a5s1d65as1d65as1d65a1d6
 ````
+# 🍃 MongoDB Local Setup Tutorial
+
+- It is necessary to have MongoDB installed to run the project with a local connection established.  
+- The project uses a collection named `credentialsTests`, so make sure this collection is created in your database.
 
 # 🚀 How to Run Tests
 ### Using Maven:
-
 ```bash
 mvn clean test
 ````
-
+## To access the relatory generated with allure
 ### Using Maven:
 ```bash
 mvn allure:serve
 ````
+
