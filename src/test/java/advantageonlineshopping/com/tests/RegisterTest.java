@@ -1,12 +1,12 @@
 package advantageonlineshopping.com.tests;
 
-import advantageonlineshopping.com.Hooks;
-import advantageonlineshopping.com.data.GlobalRegisterData;
+import Hooks;
+import advantageonlineshopping.com.data.GlobalRegisterDataShopping;
 import advantageonlineshopping.com.pages.HomePage;
 import advantageonlineshopping.com.pages.RegistrationPage;
-import advantageonlineshopping.com.utils.AIUtils;
-import advantageonlineshopping.com.utils.AllureUtils;
-import advantageonlineshopping.com.utils.MongoDBUtils;
+import utils.AIUtils;
+import utils.AllureUtils;
+import utils.MongoDBUtils;
 import com.microsoft.playwright.options.LoadState;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit5.AllureJunit5;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Map;
 
-import static advantageonlineshopping.com.utils.AllureUtils.screenshot;
+import static utils.AllureUtils.screenshot;
 
 @Slf4j
 @ExtendWith(AllureJunit5.class)
@@ -42,7 +42,7 @@ public class RegisterTest extends Hooks {
 
     @Step("Generate register data")
     void stepGenerateRegisterData() throws Exception {
-        String model = "gpt-4o-mini";
+        String model = "nvidia/nemotron-3-super-120b-a12b:free";
         String systemMsg = "You are a registration data generator. Be creative, avoid using generic names in username to prevent duplication!";
         String userMsg = "Generate a pure JSON, without additional text, containing the fields username, email," +
                 " password <Use 4 characters or longer, Use maximum 12 characters, Including at least one lowercase letter, Including at least one uppercase letter, Including at least one number>," +
@@ -69,18 +69,18 @@ public class RegisterTest extends Hooks {
 
     @Step("Fill register infos")
     void stepRegisterInfos() {
-        register.usernameInputFill(GlobalRegisterData.USERNAME);
-        register.emailInputFill(GlobalRegisterData.EMAIL);
-        register.passwordInputFill(GlobalRegisterData.PASSWORD);
-        register.confirmPasswordInputFill(GlobalRegisterData.CONFIRM_PASSWORD);
-        register.firstnameInputFill(GlobalRegisterData.FIRSTNAME);
-        register.lastnameInputFill(GlobalRegisterData.LASTNAME);
-        register.phoneNumberFill(GlobalRegisterData.PHONE_NUMBER);
-        register.countrySelect(GlobalRegisterData.COUNTRY);
-        register.cityInputFill(GlobalRegisterData.CITY);
-        register.adressInputFill(GlobalRegisterData.ADDRESS);
-        register.stateInputFill(GlobalRegisterData.STATE);
-        register.postalCodeFill(GlobalRegisterData.POSTAL_CODE);
+        register.usernameInputFill(GlobalRegisterDataShopping.USERNAME);
+        register.emailInputFill(GlobalRegisterDataShopping.EMAIL);
+        register.passwordInputFill(GlobalRegisterDataShopping.PASSWORD);
+        register.confirmPasswordInputFill(GlobalRegisterDataShopping.CONFIRM_PASSWORD);
+        register.firstnameInputFill(GlobalRegisterDataShopping.FIRSTNAME);
+        register.lastnameInputFill(GlobalRegisterDataShopping.LASTNAME);
+        register.phoneNumberFill(GlobalRegisterDataShopping.PHONE_NUMBER);
+        register.countrySelect(GlobalRegisterDataShopping.COUNTRY);
+        register.cityInputFill(GlobalRegisterDataShopping.CITY);
+        register.adressInputFill(GlobalRegisterDataShopping.ADDRESS);
+        register.stateInputFill(GlobalRegisterDataShopping.STATE);
+        register.postalCodeFill(GlobalRegisterDataShopping.POSTAL_CODE);
         AllureUtils.screenshot(page, "Register fill");
     }
 
@@ -93,9 +93,9 @@ public class RegisterTest extends Hooks {
         String usernameUserIcon = home.userIconGetText();
 
         Assertions.assertEquals(
-                GlobalRegisterData.USERNAME, usernameUserIcon,
+                GlobalRegisterDataShopping.USERNAME, usernameUserIcon,
                 "Register failed. The username displayed in the icon does not match the one used during registration.\n" +
-                        "Username found: " + usernameUserIcon + " | Expected: " + GlobalRegisterData.USERNAME
+                        "Username found: " + usernameUserIcon + " | Expected: " + GlobalRegisterDataShopping.USERNAME
         );
 
         log.info("Registration completed successfully.");

@@ -1,4 +1,4 @@
-package advantageonlineshopping.com.utils;
+package utils;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;

@@ -1,6 +1,6 @@
 package advantageonlineshopping.com.data;
 
-public class GlobalRegisterData {
+public class GlobalRegisterDataShopping {
     public static String USERNAME;
     public static String EMAIL;
     public static String PASSWORD;

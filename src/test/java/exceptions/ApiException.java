@@ -1,4 +1,4 @@
-package advantageonlineshopping.com.exceptions;
+package exceptions;
 
 /**
  * Custom exception for API-related errors.

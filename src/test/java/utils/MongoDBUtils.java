@@ -1,6 +1,6 @@
-package advantageonlineshopping.com.utils;
+package utils;
 
-import advantageonlineshopping.com.data.GlobalRegisterData;
+import advantageonlineshopping.com.data.GlobalRegisterDataShopping;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -104,18 +104,18 @@ public class MongoDBUtils {
         MongoCollection<Document> collection = createCollectionIfNotExists(collectionName);
 
         Map<String, Object> data = new HashMap<>();
-        data.put("username", GlobalRegisterData.USERNAME);
-        data.put("email", GlobalRegisterData.EMAIL);
-        data.put("password", GlobalRegisterData.PASSWORD);
-        data.put("confirmPassword", GlobalRegisterData.CONFIRM_PASSWORD);
-        data.put("firstname", GlobalRegisterData.FIRSTNAME);
-        data.put("lastname", GlobalRegisterData.LASTNAME);
-        data.put("phoneNumber", GlobalRegisterData.PHONE_NUMBER);
-        data.put("country", GlobalRegisterData.COUNTRY);
-        data.put("city", GlobalRegisterData.CITY);
-        data.put("address", GlobalRegisterData.ADDRESS);
-        data.put("state", GlobalRegisterData.STATE);
-        data.put("postalCode", GlobalRegisterData.POSTAL_CODE);
+        data.put("username", GlobalRegisterDataShopping.USERNAME);
+        data.put("email", GlobalRegisterDataShopping.EMAIL);
+        data.put("password", GlobalRegisterDataShopping.PASSWORD);
+        data.put("confirmPassword", GlobalRegisterDataShopping.CONFIRM_PASSWORD);
+        data.put("firstname", GlobalRegisterDataShopping.FIRSTNAME);
+        data.put("lastname", GlobalRegisterDataShopping.LASTNAME);
+        data.put("phoneNumber", GlobalRegisterDataShopping.PHONE_NUMBER);
+        data.put("country", GlobalRegisterDataShopping.COUNTRY);
+        data.put("city", GlobalRegisterDataShopping.CITY);
+        data.put("address", GlobalRegisterDataShopping.ADDRESS);
+        data.put("state", GlobalRegisterDataShopping.STATE);
+        data.put("postalCode", GlobalRegisterDataShopping.POSTAL_CODE);
 
         Document doc = new Document(data);
         collection.insertOne(doc);
@@ -142,18 +142,18 @@ public class MongoDBUtils {
         if (foundDocument != null) {
             lastInsertedDocument = foundDocument;
 
-            GlobalRegisterData.USERNAME = foundDocument.getString("username");
-            GlobalRegisterData.EMAIL = foundDocument.getString("email");
-            GlobalRegisterData.PASSWORD = foundDocument.getString("password");
-            GlobalRegisterData.CONFIRM_PASSWORD = foundDocument.getString("confirmPassword");
-            GlobalRegisterData.FIRSTNAME = foundDocument.getString("firstname");
-            GlobalRegisterData.LASTNAME = foundDocument.getString("lastname");
-            GlobalRegisterData.PHONE_NUMBER = foundDocument.getString("phoneNumber");
-            GlobalRegisterData.COUNTRY = foundDocument.getString("country");
-            GlobalRegisterData.CITY = foundDocument.getString("city");
-            GlobalRegisterData.ADDRESS = foundDocument.getString("address");
-            GlobalRegisterData.STATE = foundDocument.getString("state");
-            GlobalRegisterData.POSTAL_CODE = foundDocument.getString("postalCode");
+            GlobalRegisterDataShopping.USERNAME = foundDocument.getString("username");
+            GlobalRegisterDataShopping.EMAIL = foundDocument.getString("email");
+            GlobalRegisterDataShopping.PASSWORD = foundDocument.getString("password");
+            GlobalRegisterDataShopping.CONFIRM_PASSWORD = foundDocument.getString("confirmPassword");
+            GlobalRegisterDataShopping.FIRSTNAME = foundDocument.getString("firstname");
+            GlobalRegisterDataShopping.LASTNAME = foundDocument.getString("lastname");
+            GlobalRegisterDataShopping.PHONE_NUMBER = foundDocument.getString("phoneNumber");
+            GlobalRegisterDataShopping.COUNTRY = foundDocument.getString("country");
+            GlobalRegisterDataShopping.CITY = foundDocument.getString("city");
+            GlobalRegisterDataShopping.ADDRESS = foundDocument.getString("address");
+            GlobalRegisterDataShopping.STATE = foundDocument.getString("state");
+            GlobalRegisterDataShopping.POSTAL_CODE = foundDocument.getString("postalCode");
 
             log.info("First document loaded and GlobalRegisterData populated.");
             return true;

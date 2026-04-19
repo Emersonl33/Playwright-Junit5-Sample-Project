@@ -1,7 +1,6 @@
-package advantageonlineshopping.com;
-
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
+import utils.ReportGenerator;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -34,7 +33,7 @@ public class Hooks {
         browser.close();
         playwright.close();
         try {
-            advantageonlineshopping.com.utils.ReportGenerator.generateAllureReport();
+            ReportGenerator.generateAllureReport();
         } catch (Exception e) {
             // Don't fail tests because report generation failed; just log
             System.err.println("Failed to generate Allure report: " + e.getMessage());

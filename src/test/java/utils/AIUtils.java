@@ -1,8 +1,8 @@
-package advantageonlineshopping.com.utils;
+package utils;
 
-import advantageonlineshopping.com.data.GlobalRegisterData;
-import advantageonlineshopping.com.exceptions.ApiException;
-import advantageonlineshopping.com.exceptions.InvalidResponseException;
+import advantageonlineshopping.com.data.GlobalRegisterDataShopping;
+import exceptions.ApiException;
+import exceptions.InvalidResponseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -194,18 +194,18 @@ public class AIUtils {
             return;
         }
 
-        GlobalRegisterData.USERNAME = data.getOrDefault("username", "");
-        GlobalRegisterData.EMAIL = data.getOrDefault("email", "");
-        GlobalRegisterData.PASSWORD = data.getOrDefault("password", "");
-        GlobalRegisterData.CONFIRM_PASSWORD = data.getOrDefault("confirmPassword", "");
-        GlobalRegisterData.FIRSTNAME = data.getOrDefault("firstname", "");
-        GlobalRegisterData.LASTNAME = data.getOrDefault("lastname", "");
-        GlobalRegisterData.PHONE_NUMBER = data.getOrDefault("phoneNumber", "");
-        GlobalRegisterData.COUNTRY = data.getOrDefault("country", "");
-        GlobalRegisterData.CITY = data.getOrDefault("city", "");
-        GlobalRegisterData.ADDRESS = data.getOrDefault("address", "");
-        GlobalRegisterData.STATE = data.getOrDefault("state", "");
-        GlobalRegisterData.POSTAL_CODE = data.getOrDefault("postalCode", "");
+        GlobalRegisterDataShopping.USERNAME = data.getOrDefault("username", "");
+        GlobalRegisterDataShopping.EMAIL = data.getOrDefault("email", "");
+        GlobalRegisterDataShopping.PASSWORD = data.getOrDefault("password", "");
+        GlobalRegisterDataShopping.CONFIRM_PASSWORD = data.getOrDefault("confirmPassword", "");
+        GlobalRegisterDataShopping.FIRSTNAME = data.getOrDefault("firstname", "");
+        GlobalRegisterDataShopping.LASTNAME = data.getOrDefault("lastname", "");
+        GlobalRegisterDataShopping.PHONE_NUMBER = data.getOrDefault("phoneNumber", "");
+        GlobalRegisterDataShopping.COUNTRY = data.getOrDefault("country", "");
+        GlobalRegisterDataShopping.CITY = data.getOrDefault("city", "");
+        GlobalRegisterDataShopping.ADDRESS = data.getOrDefault("address", "");
+        GlobalRegisterDataShopping.STATE = data.getOrDefault("state", "");
+        GlobalRegisterDataShopping.POSTAL_CODE = data.getOrDefault("postalCode", "");
 
         LOGGER.log(Level.FINE, "GlobalRegisterData populated successfully");
     }

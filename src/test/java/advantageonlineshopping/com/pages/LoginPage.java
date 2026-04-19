@@ -1,7 +1,7 @@
 package advantageonlineshopping.com.pages;
 
-import advantageonlineshopping.com.data.GlobalRegisterData;
-import advantageonlineshopping.com.utils.ToolsUtils;
+import advantageonlineshopping.com.data.GlobalRegisterDataShopping;
+import utils.ToolsUtils;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
@@ -25,12 +25,12 @@ public class LoginPage {
     }
 
     public void fillUsernameLogin(String username){
-        GlobalRegisterData.USERNAME = username;
+        GlobalRegisterDataShopping.USERNAME = username;
         ToolsUtils.highlightScrollAndFill(usernameLoginInput(), username);
     }
 
     public void fillPasswordLogin(String password){
-        GlobalRegisterData.PASSWORD = password;
+        GlobalRegisterDataShopping.PASSWORD = password;
         ToolsUtils.highlightScrollAndFill(passwordLoginInput(), password);
     }
 

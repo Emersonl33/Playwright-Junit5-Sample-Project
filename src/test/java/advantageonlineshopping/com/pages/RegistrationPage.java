@@ -1,13 +1,13 @@
 package advantageonlineshopping.com.pages;
 
-import advantageonlineshopping.com.data.GlobalRegisterData;
-import advantageonlineshopping.com.utils.ToolsUtils;
+import advantageonlineshopping.com.data.GlobalRegisterDataShopping;
+import utils.ToolsUtils;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static advantageonlineshopping.com.utils.ToolsUtils.highlightAndClick;
+import static utils.ToolsUtils.highlightAndClick;
 
 public class RegistrationPage {
     private static final Logger log = LoggerFactory.getLogger(HomePage.class);
@@ -74,62 +74,62 @@ public class RegistrationPage {
     }
 
     public void usernameInputFill(String username) {
-        GlobalRegisterData.USERNAME = username;
+        GlobalRegisterDataShopping.USERNAME = username;
         ToolsUtils.highlightScrollAndFill(usernameInput(), username);
     }
 
     public void emailInputFill(String email) {
-        GlobalRegisterData.EMAIL = email;
+        GlobalRegisterDataShopping.EMAIL = email;
         ToolsUtils.highlightScrollAndFill(emailInput(), email);
     }
 
     public void passwordInputFill(String password) {
-        GlobalRegisterData.PASSWORD = password;
+        GlobalRegisterDataShopping.PASSWORD = password;
         ToolsUtils.highlightScrollAndFill(passwordInput(), password);
     }
 
     public void confirmPasswordInputFill(String password) {
-        GlobalRegisterData.CONFIRM_PASSWORD = password;
+        GlobalRegisterDataShopping.CONFIRM_PASSWORD = password;
         ToolsUtils.highlightScrollAndFill(confirmPasswordInput(), password);
     }
 
     public void firstnameInputFill(String firstname) {
-        GlobalRegisterData.FIRSTNAME = firstname;
+        GlobalRegisterDataShopping.FIRSTNAME = firstname;
         ToolsUtils.highlightScrollAndFill(firstnameInput(), firstname);
     }
 
     public void lastnameInputFill(String lastname) {
-        GlobalRegisterData.LASTNAME = lastname;
+        GlobalRegisterDataShopping.LASTNAME = lastname;
         ToolsUtils.highlightScrollAndFill(lastnameInput(), lastname);
     }
 
     public void phoneNumberFill(String phoneNumber) {
-        GlobalRegisterData.PHONE_NUMBER = phoneNumber;
+        GlobalRegisterDataShopping.PHONE_NUMBER = phoneNumber;
         ToolsUtils.highlightScrollAndFill(phoneNumberInput(), phoneNumber);
     }
 
     public void countrySelect(String country) {
-        GlobalRegisterData.COUNTRY = country;
+        GlobalRegisterDataShopping.COUNTRY = country;
         countryComboBox().selectOption(country);
     }
 
     public void cityInputFill(String city) {
-        GlobalRegisterData.CITY = city;
+        GlobalRegisterDataShopping.CITY = city;
         ToolsUtils.highlightScrollAndFill(cityInput(), city);
     }
 
     public void adressInputFill(String adress) {
-        GlobalRegisterData.ADDRESS = adress;
+        GlobalRegisterDataShopping.ADDRESS = adress;
         ToolsUtils.highlightScrollAndFill(adressInput(), adress);
     }
 
     public void stateInputFill(String state) {
-        GlobalRegisterData.STATE = state;
+        GlobalRegisterDataShopping.STATE = state;
         ToolsUtils.highlightScrollAndFill(stateInput(), state);
     }
 
     public void postalCodeFill(String postalCode) {
-        GlobalRegisterData.POSTAL_CODE = postalCode;
+        GlobalRegisterDataShopping.POSTAL_CODE = postalCode;
         ToolsUtils.highlightScrollAndFill(postalCodeInput(), postalCode);
     }
 

@@ -1,12 +1,12 @@
 package advantageonlineshopping.com.pages;
 
-import advantageonlineshopping.com.utils.ToolsUtils;
+import utils.ToolsUtils;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static advantageonlineshopping.com.utils.ToolsUtils.highlightAndClick;
+import static utils.ToolsUtils.highlightAndClick;
 
 
 public class HomePage {

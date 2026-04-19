@@ -1,12 +1,12 @@
 package advantageonlineshopping.com.tests;
 
-import advantageonlineshopping.com.Hooks;
-import advantageonlineshopping.com.data.GlobalRegisterData;
+import Hooks;
+import advantageonlineshopping.com.data.GlobalRegisterDataShopping;
 import advantageonlineshopping.com.pages.HomePage;
 import advantageonlineshopping.com.pages.LoginPage;
 import advantageonlineshopping.com.pages.RegistrationPage;
-import advantageonlineshopping.com.utils.AllureUtils;
-import advantageonlineshopping.com.utils.MongoDBUtils;
+import utils.AllureUtils;
+import utils.MongoDBUtils;
 import com.microsoft.playwright.options.LoadState;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit5.AllureJunit5;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static advantageonlineshopping.com.utils.AllureUtils.screenshot;
+import static utils.AllureUtils.screenshot;
 
 @Slf4j
 @ExtendWith(AllureJunit5.class)
@@ -44,7 +44,7 @@ public class LoginTest extends Hooks {
         boolean loaded = MongoDBUtils.loadLastRegisterData("credentialsTests");
 
         if (loaded) {
-            log.info("User found: " + GlobalRegisterData.USERNAME);
+            log.info("User found: " + GlobalRegisterDataShopping.USERNAME);
         } else {
             log.error("User not found");
         }
@@ -65,8 +65,8 @@ public class LoginTest extends Hooks {
 
     @Step("log in the user")
     void stepUserLogin(){
-        login.fillUsernameLogin(GlobalRegisterData.USERNAME);
-        login.fillPasswordLogin(GlobalRegisterData.PASSWORD);
+        login.fillUsernameLogin(GlobalRegisterDataShopping.USERNAME);
+        login.fillPasswordLogin(GlobalRegisterDataShopping.PASSWORD);
         login.clickSigninButton();
     }
 
@@ -75,9 +75,9 @@ public class LoginTest extends Hooks {
         screenshot(page, "Register confirmation");
         String usernameUserIcon = home.userIconGetText();
         Assertions.assertEquals(
-                GlobalRegisterData.USERNAME, usernameUserIcon,
+                GlobalRegisterDataShopping.USERNAME, usernameUserIcon,
                 "Register failed. The username displayed in the icon does not match the one used during registration.\n" +
-                        "Username found: " + usernameUserIcon + " | Expected: " + GlobalRegisterData.USERNAME
+                        "Username found: " + usernameUserIcon + " | Expected: " + GlobalRegisterDataShopping.USERNAME
         );
 
         log.info("Registration completed successfully.");
