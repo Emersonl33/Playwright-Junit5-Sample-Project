@@ -41,7 +41,7 @@ public class LoginTest extends Hooks {
     void foundUserDataDB(){
         MongoDBUtils.init("local");
 
-        boolean loaded = MongoDBUtils.loadFirstRegisterData("credentialsTests");
+        boolean loaded = MongoDBUtils.loadLastRegisterData("credentialsTests");
 
         if (loaded) {
             log.info("User found: " + GlobalRegisterData.USERNAME);
@@ -54,7 +54,7 @@ public class LoginTest extends Hooks {
     void stepNavigateToHomePage() {
         AllureUtils.attachLog("Execution logs", "Starting the test...\nStep 1 executed successfully");
         page.navigate("https://advantageonlineshopping.com/#/");
-        page.waitForLoadState(LoadState.NETWORKIDLE);
+        page.waitForLoadState(LoadState.DOMCONTENTLOADED);
         screenshot(page, "Entry in home page");
     }
 

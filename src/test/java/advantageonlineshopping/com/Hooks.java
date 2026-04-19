@@ -33,6 +33,13 @@ public class Hooks {
     void globalTeardown() {
         browser.close();
         playwright.close();
+        try {
+            advantageonlineshopping.com.utils.ReportGenerator.generateAllureReport();
+        } catch (Exception e) {
+            // Don't fail tests because report generation failed; just log
+            System.err.println("Failed to generate Allure report: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

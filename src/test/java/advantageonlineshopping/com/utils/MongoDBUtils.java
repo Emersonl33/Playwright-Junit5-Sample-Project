@@ -104,7 +104,6 @@ public class MongoDBUtils {
         MongoCollection<Document> collection = createCollectionIfNotExists(collectionName);
 
         Map<String, Object> data = new HashMap<>();
-        data.put("_id", GlobalRegisterData.USERNAME + " register data"); // Unique document identifier
         data.put("username", GlobalRegisterData.USERNAME);
         data.put("email", GlobalRegisterData.EMAIL);
         data.put("password", GlobalRegisterData.PASSWORD);
@@ -132,11 +131,13 @@ public class MongoDBUtils {
      * @param collectionName The name of the collection to search in.
      * @return true if a document was found and GlobalRegisterData was populated, false otherwise.
      */
-    public static boolean loadFirstRegisterData(String collectionName) {
+    public static boolean loadLastRegisterData(String collectionName) {
         if (database == null) throw new IllegalStateException("MongoDB connection has not been initialized.");
 
         lastCollection = database.getCollection(collectionName);
-        Document foundDocument = lastCollection.find().first();
+        Document foundDocument = lastCollection.find()
+                .sort(new Document("_id", -1))
+                .first();
 
         if (foundDocument != null) {
             lastInsertedDocument = foundDocument;

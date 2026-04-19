@@ -46,7 +46,7 @@ public class RegisterTest extends Hooks {
         String systemMsg = "You are a registration data generator. Be creative, avoid using generic names in username to prevent duplication!";
         String userMsg = "Generate a pure JSON, without additional text, containing the fields username, email," +
                 " password <Use 4 characters or longer, Use maximum 12 characters, Including at least one lowercase letter, Including at least one uppercase letter, Including at least one number>," +
-                " confirmPassword, firstname, lastname, phoneNumber, country <real name in English for all geographic info>, city, address, state, postalCode.";
+                " confirmPassword, firstname, lastname, phoneNumber, country <real name in English for all geographic info>, city, address, state, postalCode. The username need have maximum 13 characters.";
 
         Map<String, String> userData = AIUtils.generateUserData(model, systemMsg, userMsg);
         AIUtils.populateGlobalRegisterData(userData);
@@ -56,7 +56,7 @@ public class RegisterTest extends Hooks {
     void stepNavigateToHomePage() {
         AllureUtils.attachLog("Execution logs", "Starting the test...\nStep 1 executed successfully");
         page.navigate("https://advantageonlineshopping.com/#/");
-        page.waitForLoadState(LoadState.NETWORKIDLE);
+        page.waitForLoadState(LoadState.DOMCONTENTLOADED);
         screenshot(page, "Entry in home page");
     }
 
